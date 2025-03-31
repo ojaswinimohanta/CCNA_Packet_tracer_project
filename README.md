@@ -1,23 +1,21 @@
-# CCNA_Packet_tracer_project
+# CCNA-Packet-Tracer-Project  
+### 🏷️ VERSION 2.2 | 📅 PUBLISH DATE: 26 March 2025 | ALWAYS DOWNLOAD LATEST VERSION .pkt file |
 
+## 📌 Project Overview  
 
-🏷️ VERSION 2.2 | 📅 PUBLISH DATE: 26 March 2025 | ALWAYS DOWNLOAD LATEST VERSION .pkt file |
+- ✅ VLANs & Inter-VLAN Routing on distribution layer
+- ✅ HSRP for Gateway Redundancy  
+- ✅ DHCP Server Setup with failover
+- ✅ EtherChannel Link Aggregation using LaCP & Trunking
+- ✅ VTP Server-client Model for VLAN Database sync
+- ✅ OSPF for routing
+- ✅ DHCP Relay to forward dhcp IP request broadcasts.
 
+## 🔧 How to Use?  
 
-📌 Project Overview
-✅ VLANs & Inter-VLAN Routing on distribution layer
-✅ HSRP for Gateway Redundancy
-✅ DHCP Server Setup with failover
-✅ EtherChannel Link Aggregation using LaCP & Trunking
-✅ VTP Server-client Model for VLAN Database sync
-✅ OSPF for routing
-✅ DHCP Relay to forward dhcp IP request broadcasts.
-
-
-🔧 How to Use?
-1️⃣ Download Cisco Packet Tracer (from Cisco NetAcad)
-2️⃣ Download this .pkt file from GitHub Repository
-3️⃣ Open the file in Packet Tracer
+1️⃣ **Download Cisco Packet Tracer** (from Cisco NetAcad)  
+2️⃣ **Download this .pkt file** from [GitHub Repository](https://github.com/rajatoutbox/CCNA-Packet--Tracer-Project/blob/9e838174dc7efb85388a830e3d9b384ac986db12/Updates/v2.2.pkt)  
+3️⃣ **Open the file in Packet Tracer**  
 4️⃣ **Run the following commands for verification:
 
 -show vlan brief on CORE
@@ -32,41 +30,49 @@
 
 -show cdp neighbors ON CORE,DS,AS
 
--show ip interface brief
+-show ip interface brief 
+
+## 📝 Configuration Files  
+📂 All configuration scripts are available in the `configuration/` folder.  
 
 
+## 🔗 Download the Project
 
-📝 Configuration Files
-📂 All configuration scripts are available in the configuration/ folder.
-🔗 Download the Project
-Project file : Click Here to Download
-Config file : Click Here to Download
-🛠 Next Steps & Future Improvements
-🔹 1. Adding Network Security Features.
+- Project file : **[Click Here to Download](https://github.com/rajatoutbox/CCNA-Packet--Tracer-Project/blob/9e838174dc7efb85388a830e3d9b384ac986db12/Updates/v2.2.pkt)**
+- Config file : **[Click Here to Download](https://github.com/rajatoutbox/CCNA-Packet--Tracer-Project/blob/224d537c0a7114c4a5842e64ec9125f05d3063d4/configuration/v2.0config.txt)**
+
+## 🛠 Next Steps & Future Improvements
+
+### 🔹 1. Adding Network Security Features.
+
 Configure Port Security on access switches.
 
 Implement ACLs (Access Control Lists) for traffic filtering.
 
 Enable 802.1X Authentication for endpoint security.
 
-🔹 2. Implementing Advanced Routing.
+#### 🔹 2. Implementing Advanced Routing.
+
 Use OSPF or EIGRP instead of just static routing.
 
 Configure Route Summarization to optimize performance.
 
 Implement BGP (Border Gateway Protocol) for WAN .
 
-🔹 3. Network Monitoring & Automation.
+### 🔹 3. Network Monitoring & Automation.
+
 Setup SNMP (Simple Network Management Protocol) for monitoring.
 
 Implement Syslog & NetFlow for traffic analysis.
 
 Try Python & Ansible for network automation.
-📢 Want to Collaborate?
+
+## 📢 Want to Collaborate?
+
 Feel free to contribute by creating a Pull Request or sharing your feedback! 🚀
 
-📞 Connect Me
-🔗 LinkedIn:https://www.linkedin.com/in/ojaswini-mohanta-a77b5918b/
+## 📞 Connect with Me
 
-📧 Email: ojaswinimohanta9@gmail.com
+🔗 LinkedIn: https://www.linkedin.com/in/rajatkumarsingh17041995
 
+📧 Email: rajatoutbox@outlook.com

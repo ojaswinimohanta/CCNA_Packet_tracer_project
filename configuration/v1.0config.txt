@@ -1,0 +1,443 @@
+<< ROUTER sub-interface IP ISP1 >>
+en
+conf t
+int gi 0/0/0
+no shut
+ex
+int gi 0/0/0.10
+encapsulation dot1q 10
+ip address 172.16.10.1 255.255.255.0
+ex
+int gi 0/0/0.20
+encapsulation dot1q 20
+ip address 172.16.20.1 255.255.255.0
+ex
+int gi 0/0/1
+no shut
+ex
+int gi 0/0/1.10
+encapsulation dot1q 30
+ip address 172.16.30.1 255.255.255.0
+ex
+int gi 0/0/1.20
+encapsulation dot1q 40
+ip address 172.16.40.1 255.255.255.0
+ex
+do wr
+
+<< ROUTER Sub-Interface IP ISP2 >>
+en
+conf t
+int gi 0/0/0
+no shut
+ex
+int gi 0/0/0.10
+encapsulation dot1q 10
+ip address 172.16.10.2 255.255.255.0
+ex
+int gi 0/0/0.20
+encapsulation dot1q 20
+ip address 172.16.20.2 255.255.255.0
+ex
+int gi 0/0/1
+no shut
+ex
+int gi 0/0/1.10
+encapsulation dot1q 30
+ip address 172.16.30.2 255.255.255.0
+ex
+int gi 0/0/1.20
+encapsulation dot1q 40
+ip address 172.16.40.2 255.255.255.0
+ex
+do wr
+
+<< ROUTER HSRP ISP1-ACTIVE >>
+en
+conf t
+hostname ISP1
+int gi 0/0/0.10
+standby 10 ip 172.16.10.254
+standby 10 priority 110
+standby 10 preempt
+ex
+int gi 0/0/0.20
+standby 20 ip 172.16.20.254
+standby 20 priority 110
+standby 20 preempt
+ex
+int gi 0/0/1.10
+standby 30 ip 172.16.30.254
+standby 30 priority 110
+standby 30 preempt
+ex
+int gi 0/0/1.20
+standby 40 ip 172.16.40.254
+standby 40 priority 110
+standby 40 preempt
+ex
+do wr
+
+<< ROUTER HSRP ISP2-STANDBY >>
+en
+conf t
+hostname ISP2
+int gi 0/0/0.10
+standby 10 ip 172.16.10.254
+standby 10 priority 90
+standby 10 preempt
+ex
+int gi 0/0/0.20
+standby 20 ip 172.16.20.254
+standby 20 priority 90
+standby 20 preempt
+ex
+int gi 0/0/1.10
+standby 30 ip 172.16.30.254
+standby 30 priority 90
+standby 30 preempt
+ex
+int gi 0/0/1.20
+standby 40 ip 172.16.40.254
+standby 40 priority 90
+standby 40 preempt
+ex
+do wr
+
+
+<< ROUTER DHCP - Both ISP1 &ISP2 for failover  >>
+en
+conf t
+ip dhcp excluded-address 172.16.10.1 172.16.10.10
+ip dhcp excluded-address 172.16.10.254  
+ip dhcp pool VLAN10
+network 172.16.10.0 255.255.255.0
+default-router 172.16.10.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.20.1 172.16.20.10
+ip dhcp excluded-address 172.16.20.254  
+ip dhcp pool VLAN20
+network 172.16.20.0 255.255.255.0
+default-router 172.16.20.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.40.1 172.16.40.10
+ip dhcp excluded-address 172.16.40.254 
+ip dhcp pool VLAN40
+network 172.16.40.0 255.255.255.0
+default-router 172.16.40.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.30.1 172.16.30.10
+ip dhcp excluded-address 172.16.30.254  
+ip dhcp pool VLAN30
+network 172.16.30.0 255.255.255.0
+default-router 172.16.30.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.50.1 172.16.50.10
+ip dhcp excluded-address 172.16.50.254  
+ip dhcp pool VLAN50
+network 172.16.50.0 255.255.255.0
+default-router 172.16.50.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.60.1 172.16.60.10
+ip dhcp excluded-address 172.16.60.254  
+ip dhcp pool VLAN60
+network 172.16.60.0 255.255.255.0
+default-router 172.16.60.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.70.1 172.16.70.10
+ip dhcp excluded-address 172.16.70.254  
+ip dhcp pool VLAN70
+network 172.16.70.0 255.255.255.0
+default-router 172.16.70.254
+dns-server 8.8.8.8
+end
+conf t
+ip dhcp excluded-address 172.16.80.1 172.16.80.10
+ip dhcp excluded-address 172.16.80.254  
+ip dhcp pool VLAN80
+network 172.16.80.0 255.255.255.0
+default-router 172.16.80.254
+dns-server 8.8.8.8
+end
+wr
+
+<< LAYER 3 Link Aggregation - Etherchannel using LaCP >>
+
+en
+conf t
+interface range gi 1/0/1-2
+channel-group 1 mode active
+switchport mode trunk
+switchport trunk allowed vlan all
+ex
+do wr
+
+<< STP for Loop Prevention >>
+
+#CS01
+
+en
+conf t
+hostname CS01
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,40 root primary
+do wr
+
+# CS02
+
+en
+conf t
+hostname CS02
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,40 root secondary
+do wr
+
+<< LAYER 3 VLAN INTERFACE  >>
+en
+conf t
+vlan 10
+name orix
+ex
+vlan 20
+name CSG
+ex
+vlan 30
+name LGCNS
+ex
+vlan 40
+name cisco
+end
+conf t
+interface vlan 10
+ip address 172.16.10.1 255.255.255.0
+no shutdown
+ex
+interface vlan 20
+ip address 172.16.20.1 255.255.255.0
+no shutdown
+ex
+interface vlan 30
+ip address 172.16.30.1 255.255.255.0
+no shutdown
+ex
+interface vlan 40
+ip address 172.16.40.1 255.255.255.0
+no shutdown
+end
+wr
+
+<< LAYER 3 VTP - Server mode on both CS01 & CS02 for failover >>
+
+en
+conf t
+vtp domain mynetwork
+vtp mode server
+vtp version 2
+vtp password cisco123
+do wr
+
+<< LAYER 2 Interface >>
+
+# AS01
+
+en
+conf t
+hostname AS01
+int range gi 0/1-2
+switchport mode trunk
+switchport trunk allowed vlan all
+ex
+do wr
+
+# AS02
+
+en
+conf t
+hostname AS02
+int range gi 0/1-2
+switchport mode trunk
+switchport trunk allowed vlan all
+ex
+do wr
+
+# AS03
+
+en
+conf t
+hostname AS03
+int range gi 0/1-2
+switchport mode trunk
+switchport trunk allowed vlan all
+ex
+do wr
+
+<< LAYER 2 VTP >>
+en
+conf t
+vtp domain mynetwork
+vtp mode client 
+vtp password cisco123
+do wr
+
+<< INTERFACE TRUNKING - CS01 & CS02 >>
+
+en
+conf t
+interface range gi 1/0/1-3
+switchport mode trunk
+switchport trunk allowed vlan all
+end
+wr
+
+en
+conf t
+interface range gi 1/0/5-7
+switchport mode trunk
+switchport trunk allowed vlan all
+end
+wr
+
+<< INTERFACE TRUNKING - AS01 & AS02 & AS03 >>
+
+en
+conf t
+int range gi 0/1-2
+switchport mode trunk
+switchport trunk allowed vlan all
+ex
+do wr
+end
+
+
+# STP 
+en
+conf t
+spanning-tree mode rapid-pvst
+do wr
+end
+
+##################################################################################### VERSION 1.1 UPDATES #############################################################################################################
+
+<< PORT SECURITY  >>
+
+conf t
+interface range FastEthernet0/1-22   
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2  # Max 2 devices allow
+ switchport port-security violation restrict  # generates logs on unauthorized devices
+ switchport port-security mac-address sticky  # automatically saves mac-address of first 2 devices connected to port
+ exit
+do wr
+
+<< ACL >>
+
+📌 Advanced ACL Implementation - Documentation
+
+📝 Scenario Overview
+
+In this network, multiple VLANs are configured for different clients. To enhance security, access control, and traffic filtering, ACLs (Access Control Lists) are implemented to regulate communication between VLANs, restrict unauthorized internet access, and block malicious IPs.
+
+The following security measures are applied using extended ACLs:
+1️⃣ Restricting VLAN-to-VLAN Communication – Only necessary communication is allowed.
+2️⃣ Internet Access Control – Only specific VLANs are permitted to access the internet.
+3️⃣ ICMP Restrictions – Only the CISCO  can use ping for network diagnostics.
+4️⃣ Blocking Malicious Traffic – Identified IPs and external unauthorized networks are blocked.
+
+1️⃣ VLAN-to-VLAN Communication Restrictions
+
+🎯 Objective:
+VLAN 10 (Users) should only access VLAN 20’s server (172.16.20.100).
+VLAN 10 should be denied access to other VLAN 20 devices.
+All other traffic should be allowed as usual.
+
+✅ Configuration:
+en
+conf t
+ip access-list extended VLAN10-SECURITY
+permit ip 172.16.10.0 0.0.0.255 host 172.16.20.100
+deny ip 172.16.10.0 0.0.0.255 172.16.20.0 0.0.0.255
+permit ip any any
+end
+conf t
+interface vlan 10
+ip access-group VLAN10-SECURITY in
+exit
+do wr
+
+
+🔹 Expected Result:
+
+Users in VLAN 10 can communicate only with the server in VLAN 20 (172.16.20.100).
+Other devices in VLAN 20 remain inaccessible from VLAN 10.
+
+
+2️⃣ Internet Access Control
+
+🎯 Objective:
+Only VLAN 30 (LGCNS) should be allowed internet access.
+Other VLANs should be restricted from accessing external networks.
+
+✅ Configuration:
+
+🔹 Expected Result:
+
+VLAN 30 users can browse the internet.
+All other VLANs are blocked from accessing external networks.
+
+3️⃣ ICMP (Ping) Restriction
+
+🎯 Objective:
+Only CISCO (VLAN 40) can ping any device.
+All other VLANs are blocked from using ICMP.
+
+✅ Configuration:
+
+🔹 Expected Result:
+
+Only VLAN 40 (CISCO) can perform network diagnostics using ping.
+Ping requests from all other VLANs will be dropped.
+
+4️⃣ Blocking Malicious Traffic & Unauthorized Users
+
+🎯 Objective:
+Block access to known malicious IPs (192.168.100.200).
+Block an external unauthorized subnet (192.168.50.0/24).
+Allow all other normal traffic.
+
+✅ Configuration:
+
+🔹 Expected Result:
+
+Any traffic originating from malicious IPs (192.168.100.200) is blocked.
+Any device from unauthorized network (192.168.50.0/24) is denied access.
+All other traffic is allowed as usual.
+
+📌 ACLs Verification & Testing
+
+After applying ACLs, use the following commands to verify their functionality:
+
+✅ Check Configured ACLs: show ip access-lists
+✅ Check ACLs Applied on Interfaces:show running-config | include access-group
+✅ Check ACL Hit Counts (Monitor Traffic Matches):show access-lists
+✅ Check if an Interface Has Active ACLs:show ip interface GigabitEthernet0/0/0
+
+🚀 Final Summary: Implemented ACL Security Policies
+
+✔ VLAN 10 can only communicate with a specific server in VLAN 20.
+✔ Only VLAN 30 users have internet access.
+✔ Only CISCO (VLAN 40) can use ping (ICMP).
+✔ Malicious traffic and unauthorized networks are blocked.
+
