@@ -1,6 +1,9 @@
 # CCNA_Packet_tracer_project
 
+
 🏷️ VERSION 2.2 | 📅 PUBLISH DATE: 26 March 2025 | ALWAYS DOWNLOAD LATEST VERSION .pkt file |
+
+
 📌 Project Overview
 ✅ VLANs & Inter-VLAN Routing on distribution layer
 ✅ HSRP for Gateway Redundancy
@@ -9,6 +12,8 @@
 ✅ VTP Server-client Model for VLAN Database sync
 ✅ OSPF for routing
 ✅ DHCP Relay to forward dhcp IP request broadcasts.
+
+
 🔧 How to Use?
 1️⃣ Download Cisco Packet Tracer (from Cisco NetAcad)
 2️⃣ Download this .pkt file from GitHub Repository
@@ -28,6 +33,9 @@
 -show cdp neighbors ON CORE,DS,AS
 
 -show ip interface brief
+
+
+
 📝 Configuration Files
 📂 All configuration scripts are available in the configuration/ folder.
 🔗 Download the Project
