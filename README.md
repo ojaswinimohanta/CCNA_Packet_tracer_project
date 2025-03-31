@@ -73,6 +73,6 @@ Feel free to contribute by creating a Pull Request or sharing your feedback! �
 
 ## 📞 Connect with Me
 
-🔗 LinkedIn: https://www.linkedin.com/in/rajatkumarsingh17041995
+🔗 LinkedIn:https://www.linkedin.com/in/ojaswini-mohanta-a77b5918b/
 
-📧 Email: rajatoutbox@outlook.com
+📧 Email:ojaswinimohanta2127@gmail.com
