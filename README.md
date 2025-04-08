@@ -36,10 +36,7 @@
 📂 All configuration scripts are available in the `configuration/` folder.  
 
 
-## 🔗 Download the Project
 
-- Project file : **[Click Here to Download](https://github.com/rajatoutbox/CCNA-Packet--Tracer-Project/blob/9e838174dc7efb85388a830e3d9b384ac986db12/Updates/v2.2.pkt)**
-- Config file : **[Click Here to Download](https://github.com/rajatoutbox/CCNA-Packet--Tracer-Project/blob/224d537c0a7114c4a5842e64ec9125f05d3063d4/configuration/v2.0config.txt)**
 
 ## 🛠 Next Steps & Future Improvements
 
